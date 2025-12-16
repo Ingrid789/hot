@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="character animation, humanoid, human-object interaction, reinforcement learning, manipulation, basketball">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning Generalizable Hand-Object Tracking from Synthetic Demonstrations</title>
+  <link rel="icon" href="static/images/hand_icon.png" type="image/svg+xml">
+
+   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="https://kit.fontawesome.com/d383128d10.js" crossorigin="anonymous"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <style>
+    .custom-video-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-end; 
+      gap: 10px;
+    }
+
+    .custom-video-column {
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .unified-height-video {
+      height: 300px;
+      width: auto; 
+      border: 1px solid #bbb;
+      border-radius: 10px;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .unified-height-video {
+        height: 150px;
+        max-width: 100%;
+      }
+    }
+  </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+        "three": "https://unpkg.com/three@0.127.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.127.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KC36P9N5PB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KC36P9N5PB');
+</script>
+
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><img src="static/images/hand_icon_v2.png" style="height: 60px; margin-bottom: -3px;">HOT: Learning Generalizable Hand-Object Tracking from Synthetic Demonstrations</h1>            
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://wyhuai.github.io/info/">Yinhuai Wang*</a><sup>1</sup>,
+                <a href="https://ingrid789.github.io/IngridYu/">Runyi Yu*</a><sup>1</sup>,
+                <a href="mailto:hwtsui@connect.ust.hk">Hok Wai Tsui*</a><sup>1</sup>,
+                <a href="https://github.com/XiaoyiLin-code">Xiaoyi Lin*</a><sup>3</sup>,
+                <a href="https://zdchan.github.io/">Hui Zhang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://github.com/QihanZhao">Qihan Zhao</a><sup>1</sup>,
+                <a href="https://vankouf.github.io/">Ke Fan</a><sup>1</sup>,
+                <a href="https://miaoli.github.io/">Miao Li</a><sup>3</sup>,
+                <a href="https://wangjingbo1219.github.io/">Jingbo Wang</a><sup>2</sup>,
+                <a href="https://cqf.x10host.com/">Qifeng Chen</a><sup>1,✉️</sup>,
+                <a href="https://ece.hkust.edu.hk/pingtan">Ping Tan</a><sup>1,✉️</sup>
+              </span>
+            </div>
+  
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>HKUST</span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span class="author-block"><sup>2</sup>Shanghai AI Laboratory</span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span class="author-block"><sup>3</sup>Wuhan University</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2505.02094"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href=""
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-youtube"></i>
+                    </span> 
+                    <span>Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/XiaoyiLin-code/Hand-Object-Tracking"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Teaser -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified">
+            <!-- <img src="./static/images/page_teaser.png"/> -->
+            <div class="publication-banner video" style="display: flex; justify-content: center; flex-shrink: 0;">
+              <video poster="" id="metaskill-place" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+                <source src="./static/videos/part0_multiobject.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End teaser -->
+
+
+<!-- Paper abstract -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We present a system for learning generalizable hand-object tracking controllers purely from synthetic data, without requiring any human demonstrations. 
+            </p>
+            <p>
+              Our approach makes two key contributions: 
+              (1) HOP, a Hand-Object Planner, which can synthesize diverse hand-object trajectories; 
+              and (2) HOT, a Hand-Object Tracker that bridges synthetic-to-physical transfer through reinforcement learning and interaction imitation learning, delivering a generalizable controller conditioned on target hand-object states.
+            </p>
+            <p>
+              Our method extends to diverse object shapes and hand morphologies. 
+              Through extensive evaluations, we show that our approach enables dexterous hands to track challenging, long-horizon sequences including object re-arrangement and agile in-hand reorientation. 
+              These results represent a significant step toward scalable foundation controllers for manipulation that can learn entirely from synthetic data, breaking the data bottleneck that has long constrained progress in dexterous manipulation. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Poster -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Method Overview</h2>
+          <img src="./static/images/page_framework.png"/>
+          <div class="content has-text-justified">
+            <p>
+            Our system learns generalizable hand-object tracking from synthetic data. 
+            <b>(a) HOP</b> synthesizes manipulation trajectories for meta-skills. 
+            <b>(b) HOT</b> is trained through a two-stage teacher-student framework using reinforcement learning with a unified HOI imitation reward, enabling robust tracking of the target HOI trajectories. 
+            <b>(c) At inference</b>, the system can accept high-level waypoints from language models, generative models, or human data, which HOP converts into trajectories for HOT to track, enabling diverse applications.
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End poster -->
+
+<!-- Poster -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">HOP Pipeline</h2>
+          <img src="./static/images/page_pipeline.png"/>
+          <div class="content has-text-justified">
+            <p>
+            HOP synthesizes manipulation trajectories from grasp poses generated by force-closure optimization and refined by RL. 
+            Its grammar-based approach supports eight composable meta-skills, offering multi-source parameter control via randomization, LLM/VLM instructions, or from human demonstrations. 
+            The system naturally generalizes across diverse hands and objects for scalable data coverage.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End poster -->
+
+<!-- Part1: Meta Skills  -->
+<section class="hero is-light is-small" style="background-color: #FFFFFF;">
+  <div class="hero-body">
+    <h2 class="title is-2" style="text-align: center;"> HOP Synthetic Trajectories / HOT Tracking Results </h2>
+    <div class="container">
+      <div class="scrolling-wrapper" style="display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; align-items: flex-end; justify-content: flex-start;">
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-grasp" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_sword_grasp.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-place" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_sword_place.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-move" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_sword_move.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-throw" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_bottle_throw.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-catch" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_sword_catch.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-rotate" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_bottle_rotate.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video" style="flex-shrink: 0;">
+          <video poster="" id="metaskill-" autoplay controls muted loop playsinline style="height: 350px; width: auto;">
+            <source src="./static/videos/part1_bottle_regrasp.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Part4 Grab Motion Tracking -->
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <h2 class="title is-2" style="text-align: center;"> Zero-Shot Tracking on GRAB </h2>
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters is-centered has-text-centered">
+          <video controls autoplay loop muted playsinline src="./static/videos/part4_grab_substeps.mp4.mp4" poster="./static/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+          <p> Place the bottles into the basket </p>
+        </div>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel" style="text-align: center;">
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Bowl Manipulation </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/part4_grab_bowl.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Cup Manipulation </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/part4_grab_cup.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Wineglass Manipulation </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/part4_grab_wineglass.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> [Text2HOI] Pick banana with right hand </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/part4_test2hoi_banana.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </div>
+
+<!-- Part2: Tracking Long Sequences -->
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <h2 class="title is-2" style="text-align: center;"> Tracking Long Sequences </h2>
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel" style="text-align: center;">
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Hammer Hitting </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demo_hammer_hitting.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Sword Playing </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demo_sword_playing.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Bottle Arranging </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demo_bottle_arranging.mp4" type="video/mp4">
+          </video>
+        </div>
+        <!--  -->
+        <div class="publication-banner video">
+          <div class="video-caption" style="margin-bottom: 10px;"> Box Manipulation </div>
+          <video poster="" id="jumpshot" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/demo_box_manipulate.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Part3 VLM Planning -->
+<section class="section" style="background-color: #FFFFFF;">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;"> VLM Planning + Our Method </h2>
+    <div class="columns is-centered">
+      <div class="column is-three-quarters is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="./static/videos/part3_video_vlm_bottle.mp4" poster="./static/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+        <p> Place the bottles into the basket </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Part5 Other hand Tracking Results -->
+<section class="section"  style="background-color: #FFFFFF;">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;"> Different Dexterous Hand </h2>
+    <div class="columns is-centered" >
+    <div class="column is-one-fifths is-centered has-text-centered">
+      <video controls autoplay loop muted playsinline src="./static/videos/part5_shadow.mp4" poster="./static/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      <p> Shadow Hand </p>
+    </div>
+    <div class="column is-one-fifths is-centered has-text-centered">
+      <video controls autoplay loop muted playsinline src="./static/videos/part5_allegro.mp4" poster="./static/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      <p> Allegro Hand </p>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+</section>
+
+<script src="./animate.js" type="module"></script>
+
+
+<!--BibTex citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="has-text-centered">
+      <h2 class="title is-3">BibTeX</h2>
+    </div>
+    <pre>
+      <code>
+      @article{wang2025hot,
+        title={Learning Generalizable Hand-Object Tracking from Synthetic Demonstrations},
+        author={Wang, Yinhuai and Yu, Runyi and Tsui, Hok Wai and Xiaoyi Lin and Hui, Zhang and Zhao, Qihan and Ke, Fan and Wang, Jingbo and Chen, Qifeng and Tan, Ping},
+        journal={arXiv preprint arXiv:xxxx.xxxxx},
+        year={2025}
+      }
+      </code>
+  </pre>
+  </div>
+</section>
+<!--End BibTex citation -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Page template borrowed from <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank"> Academic Project Page Template</a>. <br>
+            You are free to borrow the template of our website, we just ask that you link back to this page in the footer. <br>
+            This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./animate.js" type="module"></script>
+</body>
+</html>
