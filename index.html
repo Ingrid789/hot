@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="title" content="HOT: Learning Generalizable Hand-Object Tracking without Human Demonstration">
+  <meta name="description" content="HOT learns generalizable hand-object tracking purely from synthetic data, with HOG for diverse, large-scale, and uniformly distributed trajectory synthesis and HOT for robust tracking across objects, hands, and long-horizon sequences.">
+  <meta name="keywords" content="hand-object tracking, dexterous manipulation, synthetic demonstrations, reinforcement learning, human-object interaction, long-horizon manipulation">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HOT">
+  <meta property="og:title" content="HOT: Learning Generalizable Hand-Object Tracking without Human Demonstration">
+  <meta property="og:description" content="Generalizable hand-object tracking without Human Demonstration, without human demonstrations.">
+  <meta property="og:image" content="static/images/page_framework.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="HOT method overview">
+
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>HOT: Learning Generalizable Hand-Object Tracking without Human Demonstration</title>
+
+  <link rel="icon" type="image/png" href="static/images/hot-icon.png">
+  <link rel="apple-touch-icon" href="static/images/hot-icon.png">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+</head>
+<body>
+  <button type="button" class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <div class="more-works-container">
+    <aside class="outline-panel" aria-label="Page outline">
+      <div class="outline-panel-title" id="outline-toggle">
+        <i class="fas fa-list-ul"></i>
+        <span>Outline</span>
+        <svg class="outline-fold-icon" viewBox="0 0 16 16" width="12" height="12"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="outline-links" id="outline-links">
+        <a href="#top-section" class="outline-link active" data-outline-link="top-section">Top</a>
+        <a href="#contributions-section" class="outline-link" data-outline-link="contributions-section">Overview</a>
+        <a href="#method-section" class="outline-link" data-outline-link="method-section">Method</a>
+        <a href="#teaser-section" class="outline-link" data-outline-link="teaser-section">Teaser</a>
+        <a href="#generalization-section" class="outline-link" data-outline-link="generalization-section">HOG / HOT</a>
+        <a href="#recovery-section" class="outline-link" data-outline-link="recovery-section">Zero-Shot</a>
+        <a href="#longhorizon-section" class="outline-link" data-outline-link="longhorizon-section">Long Seq.</a>
+        <a href="#perception-section" class="outline-link" data-outline-link="perception-section">VLM</a>
+        <a href="#results-section" class="outline-link" data-outline-link="results-section">Hands</a>
+      </div>
+    </aside>
+  </div>
+
+  <main id="main-content">
+    <section class="hero hero-main" id="top-section">
+      <div class="hero-video-grid" aria-hidden="true">
+        <!-- Meta Skills -->
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/hot/bottle_catch_track.mp4" type="video/mp4"></video><span class="grid-label">Bottle catch</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/hot/bottle_throw_track.mp4" type="video/mp4"></video><span class="grid-label">Bottle throw</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/hot/bottle_rotate_track.mp4" type="video/mp4"></video><span class="grid-label">Bottle rotate</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/hot/bottle_regrasp_track.mp4" type="video/mp4"></video><span class="grid-label">Bottle regrasp</span></div>
+        
+        <!-- Grab Tracking -->
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_grab_bowl.mp4" type="video/mp4"></video><span class="grid-label">GRAB bowl</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_grab_cup.mp4" type="video/mp4"></video><span class="grid-label">GRAB cup</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_grab_wineglass.mp4" type="video/mp4"></video><span class="grid-label">GRAB wineglass</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_grab_cup.mp4" type="video/mp4"></video><span class="grid-label">Sword grasp</span></div>
+         
+        <!-- Text2HOI Tracking -->
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_test2hoi_banana.mp4" type="video/mp4"></video><span class="grid-label">Sword place</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_text2hoi_airplane.mp4" type="video/mp4"></video><span class="grid-label">Sword move</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_text2hoi_duck.mp4" type="video/mp4"></video><span class="grid-label">Bottle throw</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_test2hoi_banana.mp4" type="video/mp4"></video><span class="grid-label">Sword catch</span></div>
+        
+        <!-- Long-Horizon Tracking -->
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_hammer.mp4" type="video/mp4"></video><span class="grid-label">Hammer hitting</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_sword.mp4" type="video/mp4"></video><span class="grid-label">Sword playing</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_bottle.mp4" type="video/mp4"></video><span class="grid-label">Bottle arranging</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_box.mp4" type="video/mp4"></video><span class="grid-label">Box manipulation</span></div>
+       
+       
+      </div>
+      <div class="hero-main-overlay" aria-hidden="true"></div>
+      <svg class="hero-df-rings" viewBox="0 0 800 800" aria-hidden="true">
+        <ellipse cx="400" cy="400" rx="100" ry="80" class="df-ring df-ring--1"/>
+        <ellipse cx="400" cy="400" rx="180" ry="150" class="df-ring df-ring--2"/>
+        <ellipse cx="400" cy="400" rx="270" ry="230" class="df-ring df-ring--3"/>
+        <ellipse cx="400" cy="400" rx="370" ry="320" class="df-ring df-ring--4"/>
+      </svg>
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered hero-main-content">
+              <h1 class="title is-1 publication-title hero-stagger hero-stagger--1">
+                <span class="title-main">HOT</span>
+                <span class="title-sub">Learning Generalizable Hand-Object Tracking <br>without Human Demonstration</span>
+              </h1>
+              <p class="has-text-centered demo-desc hero-stagger hero-stagger--4" style="max-width: 860px; margin: 1.25rem auto 0;">
+                This work learns generalizable hand-object tracking controllers purely from synthetic data, without any human demonstrations.
+                HOG synthesizes diverse hand-object trajectories, and HOT tracks them robustly across objects, long-horizon sequences, and different dexterous hands.
+              </p>
+              <div class="column has-text-centered hero-stagger hero-stagger--5">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="#contributions-section" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-align-left"></i></span>
+                      <span>Overview</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="#method-section" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-project-diagram"></i></span>
+                      <span>Method</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="#teaser-section" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-play-circle"></i></span>
+                      <span>Teaser</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="#generalization-section" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-video"></i></span>
+                      <span>Results</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light contributions-section" id="contributions-section">
+      <div class="container is-max-desktop">
+        <div id="abstract-section"></div>
+        <h2 class="title is-3 has-text-centered section-heading reveal"> Abstract <a href="#contributions-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <div class="content has-text-justified reveal" style="margin-bottom: 2rem;">
+              <p>
+                We present a system for learning generalizable hand-object tracking controllers purely from synthetic data, without requiring any human demonstrations.
+              </p>
+              <p>
+                Our approach makes two key contributions: 
+                (1) <span class="abstract-emphasis abstract-emphasis--hog">HOG</span>, a highly efficient Hand-Object data generator that rapidly synthesizes <span class="abstract-emphasis abstract-emphasis--underline">diverse, large-scale</span>, and <span class="abstract-emphasis abstract-emphasis--underline">uniformly distributed trajectories</span>; and
+                (2) <span class="abstract-emphasis abstract-emphasis--hot">HOT</span>, a Hand-Object Tracker that bridges <span class="abstract-emphasis abstract-emphasis--underline">synthetic-to-physical</span> transfer through reinforcement learning and interaction imitation learning. 
+                <span class="abstract-emphasis abstract-emphasis--statement">Notably, we demonstrate that the fast and intentionally noisy data generation process of HOG is crucial for endowing HOT with robust interaction dynamics.</span>
+              </p>
+              <p>
+                Our method extends to <span class="abstract-emphasis abstract-emphasis--underline">diverse object shapes</span> and <span class="abstract-emphasis abstract-emphasis--underline">hand morphologies</span>.
+                Through extensive evaluations, we show that our approach enables dexterous hands to track challenging, long-horizon sequences including object re-arrangement and agile in-hand reorientation.
+                These results represent a significant step toward scalable foundation controllers for manipulation that can learn entirely from simple, scalable synthetic data, 
+                breaking the data bottleneck that has long constrained progress in dexterous manipulation.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="contributions-split">
+          <div class="contributions-copy reveal">
+            <h4 class="contributions-copy-title">Contribution Summary</h4>
+            <ol class="contributions-list">
+              <li class="contributions-list-item" data-contribution-key="synthetic" tabindex="0" role="button" aria-pressed="false">
+                <span class="contributions-list-index">1.</span>
+                <div class="contributions-list-body">
+                  <h4>Synthetic data only</h4>
+                </div>
+              </li>
+              <li class="contributions-list-item" data-contribution-key="hop" tabindex="0" role="button" aria-pressed="false">
+                <span class="contributions-list-index">2.</span>
+                <div class="contributions-list-body">
+                  <h4>HOG trajectory synthesis</h4>
+                </div>
+              </li>
+              <li class="contributions-list-item" data-contribution-key="tracking" tabindex="0" role="button" aria-pressed="false">
+                <span class="contributions-list-index">3.</span>
+                <div class="contributions-list-body">
+                  <h4>HOT robust tracking</h4>
+                </div>
+              </li>
+              <li class="contributions-list-item" data-contribution-key="generalization" tabindex="0" role="button" aria-pressed="false">
+                <span class="contributions-list-index">4.</span>
+                <div class="contributions-list-body">
+                  <h4>Generalization across settings</h4>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="contributions-interactive reveal-stagger">
+            <div class="contributions-summary-grid">
+              <div class="contributions-guidance">
+                <p class="contributions-guidance-title">Select a contribution</p>
+                <p class="contributions-guidance-text">Click a card on the left to view its detailed summary.</p>
+              </div>
+              <button type="button" class="contribution-summary-card reveal" data-contribution-key="synthetic" aria-pressed="false">
+                <div class="contribution-summary-head">
+                  <span class="contribution-summary-number">1.</span>
+                  <span class="contribution-summary-title">Synthetic data only</span>
+                </div>
+                <div class="contribution-summary-detail">
+                  <p class="contribution-detail-label">Key contribution</p>
+                  <p class="contribution-detail-summary">HOT learns <span class="contribution-emphasis">hand-object tracking</span> without requiring <span class="contribution-emphasis">any human demonstrations</span>.</p>
+                  <div class="contribution-detail-note">
+                    <h4>Why this matters</h4>
+                    <p>By learning purely from <span class="contribution-emphasis">synthetic data</span>, the method reduces the dependence on <span class="contribution-emphasis">expensive human motion capture</span> and eases <span class="contribution-emphasis">data scaling for dexterous manipulation</span>.</p>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="contribution-summary-card reveal" data-contribution-key="hop" aria-pressed="false">
+                <div class="contribution-summary-head">
+                  <span class="contribution-summary-number">2.</span>
+                  <span class="contribution-summary-title">HOG trajectory synthesis</span>
+                </div>
+                <div class="contribution-summary-detail">
+                  <p class="contribution-detail-label">Key contribution</p>
+                  <p class="contribution-detail-summary">HOG rapidly synthesizes <span class="contribution-emphasis">diverse</span>, <span class="contribution-emphasis">large-scale</span>, and <span class="contribution-emphasis">uniformly distributed</span> hand-object trajectories.</p>
+                  <div class="contribution-detail-note">
+                    <h4>Why HOG matters</h4>
+                    <p>As a <span class="contribution-emphasis">highly efficient data generator</span>, HOG can synthesize manipulation trajectories for <span class="contribution-emphasis">arbitrary rigid objects</span> and <span class="contribution-emphasis">hand morphologies</span>. By ensuring <span class="contribution-emphasis">full distribution coverage</span> and <span class="contribution-emphasis">physically plausible contacts</span>, it serves as a strong foundation for large-scale RL-based imitation learning.</p>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="contribution-summary-card reveal" data-contribution-key="tracking" aria-pressed="false">
+                <div class="contribution-summary-head">
+                  <span class="contribution-summary-number">3.</span>
+                  <span class="contribution-summary-title">HOT robust tracking</span>
+                </div>
+                <div class="contribution-summary-detail">
+                  <p class="contribution-detail-label">Key contribution</p>
+                  <p class="contribution-detail-summary">HOT uses a <span class="contribution-emphasis">two-stage teacher-student pipeline</span> with reinforcement learning and HOI imitation learning.</p>
+                  <div class="contribution-detail-note">
+                    <h4>How HOT is trained</h4>
+                    <p>HOT is trained exclusively on <span class="contribution-emphasis">synthetic meta-skill demonstrations</span>, using a <span class="contribution-emphasis">unified set of HOI imitation rewards</span>. To enhance model capacity and robustness, it employs a teacher-student framework coupled with a <span class="contribution-emphasis">data randomization curriculum</span>.</p>
+                  </div>
+                  <div class="contribution-detail-note">
+                    <h4>Why HOT matters</h4>
+                    <p>Serving as a <span class="contribution-emphasis">general-purpose foundation controller</span>, HOT exhibits strong <span class="contribution-emphasis">generalization</span> and <span class="contribution-emphasis">robustness</span> across diverse tasks. It provides <span class="contribution-emphasis">a stable execution interface</span> for high-level reasoning models, bridging complex instructions with physical actions.</p>
+                  </div>
+                </div>
+              </button>
+              <button type="button" class="contribution-summary-card reveal" data-contribution-key="generalization" aria-pressed="false">
+                <div class="contribution-summary-head">
+                  <span class="contribution-summary-number">4.</span>
+                  <span class="contribution-summary-title">Generalization across settings</span>
+                </div>
+                <div class="contribution-summary-detail">
+                  <p class="contribution-detail-label">Key contribution</p>
+                  <p class="contribution-detail-summary">Our framework exhibits strong <span class="contribution-emphasis">zero-shot transfer</span> across <span class="contribution-emphasis">diverse trajectories</span>, <span class="contribution-emphasis">object geometries</span>, and <span class="contribution-emphasis">long-horizon manipulation sequences</span>.</p>
+                  <div class="contribution-detail-note">
+                    <h4>Proven Versatility</h4>
+                    <p>From <span class="contribution-emphasis">dynamic tracking</span> and <span class="contribution-emphasis">in-hand reorientation</span> to <span class="contribution-emphasis">multi-stage VLM planning</span>, HOT shows that well-designed <span class="contribution-emphasis">synthetic demonstrations are sufficient</span> to unlock broad, general-purpose manipulation.</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light how-section" id="method-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered reveal">Method Overview</h2>
+        <div class="how-layout">
+          <p class="how-method-guidance">Click a highlighted part of the framework below.</p>
+          <div class="how-model-card reveal--scale">
+            <div class="how-method-map">
+              <img src="static/images/page_framework.png" alt="HOT method overview" loading="lazy">
+              <div class="how-method-hotspots" role="tablist" aria-label="Method overview sections">
+                <button type="button" class="how-method-hotspot" data-method-panel="planner" aria-pressed="false">
+                  <span>(a) Hand-Object Generator</span>
+                </button>
+                <button type="button" class="how-method-hotspot" data-method-panel="tracker" aria-pressed="false">
+                  <span>(b) Training Hand-Object Trackers</span>
+                </button>
+                <button type="button" class="how-method-hotspot" data-method-panel="applications" aria-pressed="false">
+                  <span>(c) Diverse Tracking Applications</span>
+                </button>
+              </div>
+            </div>
+            <div class="how-model-caption">
+              <h3>Framework</h3>
+              <p>
+                (a) HOG synthesizes manipulation trajectories for meta-skills. 
+                (b) HOT is trained through a two-stage teacher-student framework using reinforcement learning with a unified HOI imitation reward, enabling robust tracking of the target HOI trajectories. 
+                (c) At inference, the system can accept high-level waypoints from language models, generative models, or human data, which HOG converts into trajectories for HOT to track, enabling diverse applications.HOG synthesizes trajectories and HOT learns to track them for downstream manipulation.
+              </p>
+            </div>
+          </div>
+
+          <div class="how-method-browser reveal">
+            <div class="how-method-empty is-active" data-method-empty>
+              Select (a), (b), or (c) in the overview to reveal the corresponding content.
+            </div>
+
+            <div class="how-method-panel" data-method-panel-content="planner">
+              <div class="how-planner-stack">
+                <div class="how-model-card">
+                  <div class="how-video-title how-video-title--hog">Hand-Object Generator</div>
+                  <div class="how-planner-map">
+                    <img src="static/images/page_pipeline.png" alt="HOG pipeline" loading="lazy">
+                    <div class="how-planner-click-hint" aria-hidden="true">
+                      <span class="how-planner-click-hint-mouse">
+                        <span class="how-planner-click-hint-wheel"></span>
+                      </span>
+                      <span class="how-planner-click-hint-pulse"></span>
+                      <span class="how-planner-click-hint-label">Click</span>
+                    </div>
+                    <div class="how-planner-hotspots" aria-label="HOG skill regions">
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--grasp" data-skill-panel="grasp" data-skill-name="Grasp" aria-pressed="false"><span>Grasp</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--move" data-skill-panel="move" data-skill-name="Move" aria-pressed="false"><span>Move</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--rotate" data-skill-panel="rotate" data-skill-name="Rotate" aria-pressed="false"><span>Rotate</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--throw" data-skill-panel="throw" data-skill-name="Throw" aria-pressed="false"><span>Throw</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--place" data-skill-panel="place" data-skill-name="Place" aria-pressed="false"><span>Place</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--free-move" data-skill-panel="free-move" data-skill-name="Free Move" aria-pressed="false"><span>Free Move</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--regrasp" data-skill-panel="regrasp" data-skill-name="Regrasp" aria-pressed="false"><span>Regrasp</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--catch" data-skill-panel="catch" data-skill-name="Catch" aria-pressed="false"><span>Catch</span></button>
+                      <button type="button" class="how-planner-hotspot how-planner-hotspot--composition" data-skill-panel="composition" data-skill-name="Skill Composition" aria-pressed="false"><span>Skill Composition</span></button>
+                    </div>
+                  </div>
+                  <div class="how-model-caption">
+                    <p>
+                      HOG synthesizes manipulation trajectories from grasp poses generated by force-closure optimization and refined by RL. 
+                      Its grammar-based approach supports eight composable meta-skills, offering multi-source parameter control via randomization, LLM/VLM instructions, or from human demonstrations. 
+                      The system naturally generalizes across diverse hands and objects for scalable data coverage.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="how-planner-gallery">
+                  <div class="how-planner-skill-empty is-active" data-planner-empty>
+                    Select a skill region in the pipeline above to reveal its HOG references here.
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="grasp">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Grasp reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_grasp_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Grasp reference 2</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_grasp_ref2.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Grasp reference 3</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_grasp_ref3.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="place">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Place reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_place_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Place reference 2</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_place_ref2.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Place reference 3</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_place_ref3.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="move">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Move reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_move_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Move reference 2</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_move_ref2.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Move reference 3</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_move_ref3.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="catch">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Catch reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/sword_catch_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="throw">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Throw reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/bottle_throw_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="rotate">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Rotate reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/bottle_rotate_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="regrasp">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Regrasp reference 1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/bottle_regrasp_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="how-planner-skill-panel" data-skill-content="free-move">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Free Move Ref1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/hand_freemove_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="how-planner-skill-panel" data-skill-content="composition">
+                    <div class="how-planner-video-grid">
+                      <div class="demo-video-cell">
+                        <div class="how-video-title">Skill Composition Ref1</div>
+                        <div class="how-video-frame">
+                          <video controls muted loop playsinline preload="none">
+                            <source data-src="static/videos/hog/swoard_composition_ref1.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="how-planner-skill-panel" data-skill-content="placeholder">
+                    <div class="how-planner-placeholder-card how-planner-placeholder-card--large">
+                      <h3 id="how-planner-placeholder-title">Skill references coming soon</h3>
+                      <p id="how-planner-placeholder-text">Reference videos for this HOG skill will be added soon.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="how-method-panel" data-method-panel-content="tracker">
+              <div class="how-videos-grid">
+                <div class="how-top-videos how-top-videos--tracker">
+                  <div class="demo-video-cell how-tracker-feature-cell">
+                    <div class="how-video-title">HOT Grasp</div>
+                    <div class="how-video-frame">
+                      <video controls muted loop playsinline preload="none">
+                        <source data-src="static/videos/hot/grasp_track.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                  <div class="demo-video-cell how-tracker-aux-cell how-tracker-throw-cell">
+                    <div class="how-video-title">HOT Throw</div>
+                    <div class="how-video-frame">
+                      <video controls muted loop playsinline preload="none">
+                        <source data-src="static/videos/hot/bottle_throw_track.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                  <div class="demo-video-cell how-tracker-main-cell how-tracker-rotate-cell">
+                    <div class="how-video-title">HOT Rotate</div>
+                    <div class="how-video-frame">
+                      <video controls muted loop playsinline preload="none">
+                        <source data-src="static/videos/hot/bottle_rotate_track.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                  <div class="demo-video-cell how-tracker-aux-cell how-tracker-catch-cell">
+                    <div class="how-video-title">HOT Catch</div>
+                    <div class="how-video-frame">
+                      <video controls muted loop playsinline preload="none">
+                        <source data-src="static/videos/hot/bottle_throw_track.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                  <div class="demo-video-cell how-tracker-main-cell how-tracker-regrasp-cell">
+                    <div class="how-video-title">HOT Regrasp</div>
+                    <div class="how-video-frame">
+                      <video controls muted loop playsinline preload="none">
+                        <source data-src="static/videos/hot/bottle_regrasp_track.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="how-method-panel" data-method-panel-content="applications">
+              <div class="how-method-note-card">
+                <h3>Diverse Zero-Shot Tracking Applications</h3>
+                <a href="#perception-section" class="button is-rounded is-dark">Tracking with VLM ➕ HOG</a>
+                <a href="#recovery-section" class="button is-rounded is-dark">Tracking with Generative Model</a>
+                <a href="#recovery-section" class="button is-rounded is-dark">Tracking with Human Demonstration</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small is-light" id="teaser-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">Project Teaser <a href="#teaser-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          A quick overview of the HOG data synthesis and HOT policy training.
+        </p>
+        <div class="demo-main-video-wrap reveal">
+          <video controls muted loop playsinline preload="none">
+            <source data-src="static/videos/part0_teaser_video.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label">Project teaser</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small" id="generalization-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">1. HOG Synthetic Trajectories / HOT Tracking Results <a href="#generalization-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          HOG generates diverse, large-scale, and uniformly distributed trajectories.
+          HOT learns robust hand-object interaction dynamics by tracking these synthesized trajectories.
+        </p>
+        <div class="demo-tabs" id="demo-tabs-generalization" role="tablist">
+          <button type="button" class="demo-tab active" data-video="static/videos/part1_sword_grasp.mp4" data-label="Sword grasp" aria-selected="true">Grasp</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_place.mp4" data-label="Sword place">Place</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_move.mp4" data-label="Sword move">Move</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_throw.mp4" data-label="Bottle throw">Throw</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_catch.mp4" data-label="Sword catch">Catch</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_rotate.mp4" data-label="Bottle rotate">Rotate</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_regrasp.mp4" data-label="Bottle regrasp">Regrasp</button>
+        </div>
+        <div class="demo-main-video-wrap reveal">
+          <video id="demo-video-generalization" controls muted loop playsinline preload="none">
+            <source data-src="static/videos/part1_sword_grasp.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label" id="demo-label-generalization">Sword grasp</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small is-light" id="recovery-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">2. Zero-Shot Tracking from Generated and Human HOI References <a href="#recovery-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          HOT zero-shot tracks challenging hand-object sequences from GRAB, and also accepts text-conditioned interaction goals such as Text2HOI prompts.
+        </p>
+        <div class="demo-tabs demo-tabs--grouped" id="demo-tabs-recovery" role="tablist">
+          <div class="demo-tab-group">
+            <div class="demo-tab-group-title">Tracking with Generative Model</div>
+            <div class="demo-tab-group-buttons">
+              <button type="button" class="demo-tab active" data-video="static/videos/part4_test2hoi_banana.mp4" data-label="[Text2HOI] Pick the banana with right hand" aria-selected="true">Banana</button>
+              <button type="button" class="demo-tab" data-video="static/videos/part4_text2hoi_airplane.mp4" data-label="[Text2HOI] Play the airplane with right hand">Airplane</button>
+              <button type="button" class="demo-tab" data-video="static/videos/part4_text2hoi_duck.mp4" data-label="[Text2HOI] Play the duck with right hand">Duck</button>
+            </div>
+          </div>
+          <div class="demo-tab-group">
+            <div class="demo-tab-group-title">Tracking with Human Demonstration</div>
+            <div class="demo-tab-group-buttons">
+              <button type="button" class="demo-tab" data-video="static/videos/part4_grab_bowl.mp4" data-label="Bowl manipulation">Bowl</button>
+              <button type="button" class="demo-tab" data-video="static/videos/part4_grab_cup.mp4" data-label="Cup manipulation">Cup</button>
+              <button type="button" class="demo-tab" data-video="static/videos/part4_grab_wineglass.mp4" data-label="Wineglass manipulation">Wineglass</button>
+            </div>
+          </div>
+        </div>
+        <div class="demo-main-video-wrap reveal">
+          <video id="demo-video-recovery" controls muted loop playsinline preload="none">
+            <source data-src="static/videos/part4_test2hoi_banana.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label" id="demo-label-recovery">[Text2HOI] Pick the banana with right hand</div>
+        </div>
+
+        <div class="demo-main-video-wrap reveal">
+          <video controls muted loop playsinline preload="none">
+            <source data-src="static/videos/part4_grab_substeps.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label">Tracking motion substeps from GRAB</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small" id="longhorizon-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">3. Tracking Long Sequences <a href="#longhorizon-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          HOT enables dexterous hands to track long-horizon sequences including rearrangement and multi-stage manipulation.
+        </p>
+        <div class="demo-tabs" id="demo-tabs-longhorizon" role="tablist">
+          <button type="button" class="demo-tab active" data-video="static/videos/demo_hammer_hitting.mp4" data-label="Hammer hitting" aria-selected="true">Hammer</button>
+          <button type="button" class="demo-tab" data-video="static/videos/demo_sword_playing.mp4" data-label="Sword playing">Sword</button>
+          <button type="button" class="demo-tab" data-video="static/videos/demo_bottle_arranging.mp4" data-label="Bottle arranging">Bottle</button>
+          <button type="button" class="demo-tab" data-video="static/videos/demo_box_manipulate.mp4" data-label="Box manipulation">Box</button>
+        </div>
+        <div class="demo-main-video-wrap reveal">
+          <video id="demo-video-longhorizon" controls muted loop playsinline preload="none">
+            <source data-src="static/videos/demo_hammer_hitting.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label" id="demo-label-longhorizon">Hammer hitting</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small is-light" id="perception-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">4. VLM Planning + Our Method <a href="#perception-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          HOT can take high-level waypoints from upstream planners and track the resulting hand-object interaction sequence.
+        </p>
+        <div class="demo-main-video-wrap reveal">
+          <video controls muted loop playsinline preload="none">
+            <source data-src="static/videos/part3_video_vlm_bottle.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label">Place the bottles into the basket</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small" id="results-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">5. Different Dexterous Hand <a href="#results-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          The framework extends beyond a single hand morphology and generalizes to different dexterous hand embodiments.
+        </p>
+        <div class="demo-tabs" id="demo-tabs-hands" role="tablist">
+          <button type="button" class="demo-tab active" data-hand-panel="shadow" aria-selected="true">Shadow Hand</button>
+          <button type="button" class="demo-tab" data-hand-panel="allegro" aria-selected="false">Allegro Hand</button>
+          <button type="button" class="demo-tab" data-hand-panel="sharpa" aria-selected="false">Sharpa Hand</button>
+        </div>
+        <div class="hand-results-panel is-active reveal" data-hand-content="shadow">
+          <div class="hand-carousel" data-hand-carousel data-videos="static/videos/different_hands/part5_shadow_track0_grasp.mp4|static/videos/different_hands/part5_shadow_track2_move.mp4|static/videos/different_hands/part5_shadow_track3_place.mp4|static/videos/different_hands/part5_shadow_track4.mp4" data-labels="Shadow Grasp|Shadow Move|Shadow Place|Shadow Grasp-Move-Place">
+            <button type="button" class="hand-carousel-arrow hand-carousel-arrow--prev" aria-label="Previous Shadow Hand video">&lsaquo;</button>
+            <div class="demo-video-cell hand-results-card hand-results-card--single">
+              <video id="hand-video-shadow" controls muted loop playsinline preload="none">
+                <source data-src="static/videos/different_hands/part5_shadow_track0_grasp.mp4" type="video/mp4">
+              </video>
+              <div class="demo-video-label" id="hand-label-shadow">Shadow Grasp</div>
+            </div>
+            <button type="button" class="hand-carousel-arrow hand-carousel-arrow--next" aria-label="Next Shadow Hand video">&rsaquo;</button>
+          </div>
+        </div>
+        <div class="hand-results-panel reveal" data-hand-content="allegro">
+          <div class="hand-carousel" data-hand-carousel data-videos="static/videos/different_hands/part5_allegro_track0_grasp.mp4|static/videos/different_hands/part5_allegro_track2_move.mp4|static/videos/different_hands/part5_allegro_track3_place.mp4|static/videos/different_hands/part5_allegro_track4_graspplace.mp4" data-labels="Allegro Grasp|Allegro Move|Allegro Place|Allegro Grasp-Move-Place">
+            <button type="button" class="hand-carousel-arrow hand-carousel-arrow--prev" aria-label="Previous Allegro Hand video">&lsaquo;</button>
+            <div class="demo-video-cell hand-results-card hand-results-card--single">
+              <video id="hand-video-allegro" controls muted loop playsinline preload="none">
+                <source data-src="static/videos/different_hands/part5_allegro_track0_grasp.mp4" type="video/mp4">
+              </video>
+              <div class="demo-video-label" id="hand-label-allegro">Allegro Grasp</div>
+            </div>
+            <button type="button" class="hand-carousel-arrow hand-carousel-arrow--next" aria-label="Next Allegro Hand video">&rsaquo;</button>
+          </div>
+        </div>
+      </div>
+      <div class="hand-results-panel reveal" data-hand-content="sharpa">
+          <div class="hand-carousel" data-hand-carousel data-videos="static/videos/different_hands/part5_sharpa_track0_grasp.mp4|static/videos/different_hands/part5_sharpa_track1_move.mp4|static/videos/different_hands/part5_sharpa_track2_place.mp4|static/videos/different_hands/part5_sharpa_track4.mp4" data-labels="Sharpa Grasp|Sharpa Move|Sharpa Place|Sharpa Grasp-Move-Place">
+            <button type="button" class="hand-carousel-arrow hand-carousel-arrow--prev" aria-label="Previous Sharpa Hand video">&lsaquo;</button>
+            <div class="demo-video-cell hand-results-card hand-results-card--single">
+              <video id="hand-video-sharpa" controls muted loop playsinline preload="none">
+                <source data-src="static/videos/different_hands/part5_sharpa_track0_grasp.mp4" type="video/mp4">
+              </video>
+              <div class="demo-video-label" id="hand-label-sharpa">Sharpa Grasp</div>
+            </div>
+            <button type="button" class="hand-carousel-arrow hand-carousel-arrow--next" aria-label="Next Sharpa Hand video">&rsaquo;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').catch(function() {});
+      });
+    }
+  </script>
+</body>
+</html>
