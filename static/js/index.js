@@ -1150,6 +1150,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setupSingleVideoTabs('demo-tabs-generalization', 'demo-video-generalization', 'demo-label-generalization');
     setupSingleVideoTabs('demo-tabs-longhorizon', 'demo-video-longhorizon', 'demo-label-longhorizon');
     setupSingleVideoTabs('demo-tabs-recovery', 'demo-video-recovery', 'demo-label-recovery');
+    setupSingleVideoTabs('demo-tabs-sim2sim', 'demo-video-sim2sim', 'demo-label-sim2sim');
+    setupSingleVideoTabs('demo-tabs-realworld', 'demo-video-realworld', 'demo-label-realworld');
     setupHandResultTabs();
     setupHandCarousels();
     setupDualVideoTabs('demo-tabs-perception', 'demo-video-mocap', 'demo-video-depth');
