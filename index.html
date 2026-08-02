@@ -77,6 +77,8 @@
         <a href="#longhorizon-section" class="outline-link" data-outline-link="longhorizon-section">Long Seq.</a>
         <a href="#perception-section" class="outline-link" data-outline-link="perception-section">VLM</a>
         <a href="#results-section" class="outline-link" data-outline-link="results-section">Hands</a>
+        <a href="#sim2sim-section" class="outline-link" data-outline-link="sim2sim-section">Sim2Sim</a>
+        <a href="#realworld-section" class="outline-link" data-outline-link="realworld-section">Real World</a>
       </div>
     </aside>
   </div>
@@ -764,6 +766,65 @@
             </div>
             <button type="button" class="hand-carousel-arrow hand-carousel-arrow--next" aria-label="Next Sharpa Hand video">&rsaquo;</button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small" id="sim2sim-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">6. Cross-Simulator Results <a href="#sim2sim-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          We validate sim-to-sim transfer in MuJoCo across two dexterous hand embodiments.
+        </p>
+        <div class="demo-tabs demo-tabs--grouped" id="demo-tabs-sim2sim" role="tablist" aria-label="MuJoCo sim-to-sim videos">
+          <div class="demo-tab-group">
+            <div class="demo-tab-group-title">Shadow Hand</div>
+            <div class="demo-tab-group-buttons">
+              <button type="button" class="demo-tab active" data-video="static/videos/mujoco_sim2sim/shadow_grasp_001_bottle_3_0-9.mp4" data-label="Shadow Hand: Grasp" aria-selected="true">Grasp</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_move_002_bottle_12_9.mp4" data-label="Shadow Hand: Move" aria-selected="false">Move</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_place_003_bottle_4_5-9.mp4" data-label="Shadow Hand: Place" aria-selected="false">Place</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_grasp_move_place_010_bottle_2-0.mp4" data-label="Shadow Hand: Grasp-Move-Place" aria-selected="false">Full sequence</button>
+            </div>
+          </div>
+          <div class="demo-tab-group">
+            <div class="demo-tab-group-title">Allegro Hand</div>
+            <div class="demo-tab-group-buttons">
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_grasp_001_bottle_1_5-9.mp4" data-label="Allegro Hand: Grasp" aria-selected="false">Grasp</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_move_002_bottle_10_9.mp4" data-label="Allegro Hand: Move" aria-selected="false">Move</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_place_003_bottle_26_3-9.mp4" data-label="Allegro Hand: Place" aria-selected="false">Place</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_grasp_move_place_010_bottle_12-0.mp4" data-label="Allegro Hand: Grasp-Move-Place" aria-selected="false">Full sequence</button>
+            </div>
+          </div>
+        </div>
+        <div class="demo-main-video-wrap reveal">
+          <video id="demo-video-sim2sim" controls muted loop playsinline preload="none">
+            <source data-src="static/videos/mujoco_sim2sim/shadow_grasp_001_bottle_3_0-9.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label" id="demo-label-sim2sim">Shadow Hand: Grasp</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section hero is-small is-light" id="realworld-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">7. Real-World Deployment <a href="#realworld-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          We deploy HOT on a physical robot system comprising a Flexiv Rizon 4 arm and a Revo3 hand.
+        </p>
+        <div class="demo-tabs" id="demo-tabs-realworld" role="tablist" aria-label="Real-world deployment videos">
+          <button type="button" class="demo-tab active" data-video="static/videos/real_world/demo_01.mp4" data-label="Bottle Grasp-Move-Place" aria-selected="true">Bottle Grasp-Move-Place</button>
+          <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_02.mp4" data-label="Cube Move" aria-selected="false">Cube Move</button>
+          <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_03.mp4" data-label="Cube Grasp" aria-selected="false">Cube Grasp</button>
+          <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_04.mp4" data-label="Cube Place" aria-selected="false">Cube Place</button>
+          <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_05.mp4" data-label="Cylinder Move" aria-selected="false">Cylinder Move</button>
+          <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_06.mp4" data-label="Cylinder Grasp" aria-selected="false">Cylinder Grasp</button>
+          <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_07.mp4" data-label="Cylinder Place" aria-selected="false">Cylinder Place</button>
+        </div>
+        <div class="demo-main-video-wrap reveal">
+          <video id="demo-video-realworld" controls muted loop playsinline preload="none">
+            <source data-src="static/videos/real_world/demo_01.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label" id="demo-label-realworld">Bottle Grasp-Move-Place</div>
         </div>
       </div>
     </section>
