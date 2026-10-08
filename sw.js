@@ -1,11 +1,11 @@
 // Service Worker — cache-first for static assets, network-first for HTML
-const CACHE_NAME = 'hot-site-v1';
+const CACHE_NAME = 'hot-site-v10-method-hint-pastel';
 
 // Assets to pre-cache on install (critical CSS/JS)
 const PRECACHE = [
   'static/css/bulma.min.css',
-  'static/css/index.css',
-  'static/js/index.js',
+  'static/css/index.css?v=method-hint-pastel',
+  'static/js/index.js?v=contribution-teaser',
   'static/images/hot-icon.png',
 ];
 
