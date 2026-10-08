@@ -35,7 +35,7 @@
   <link rel="apple-touch-icon" href="static/images/hot-icon.png">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/index.css?v=recovery-details">
 
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -71,14 +71,14 @@
         <a href="#top-section" class="outline-link active" data-outline-link="top-section">Top</a>
         <a href="#contributions-section" class="outline-link" data-outline-link="contributions-section">Overview</a>
         <a href="#method-section" class="outline-link" data-outline-link="method-section">Method</a>
-        <a href="#teaser-section" class="outline-link" data-outline-link="teaser-section">Teaser</a>
         <a href="#generalization-section" class="outline-link" data-outline-link="generalization-section">HOG / HOT</a>
         <a href="#recovery-section" class="outline-link" data-outline-link="recovery-section">Zero-Shot</a>
         <a href="#longhorizon-section" class="outline-link" data-outline-link="longhorizon-section">Long Seq.</a>
-        <a href="#perception-section" class="outline-link" data-outline-link="perception-section">VLM</a>
         <a href="#results-section" class="outline-link" data-outline-link="results-section">Hands</a>
+        <a href="#perception-section" class="outline-link" data-outline-link="perception-section">VLM</a>
         <a href="#sim2sim-section" class="outline-link" data-outline-link="sim2sim-section">Sim2Sim</a>
         <a href="#realworld-section" class="outline-link" data-outline-link="realworld-section">Real World</a>
+        <a href="#citation-section" class="outline-link" data-outline-link="citation-section">Citation</a>
       </div>
     </aside>
   </div>
@@ -105,10 +105,10 @@
         <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/part4_test2hoi_banana.mp4" type="video/mp4"></video><span class="grid-label">Sword catch</span></div>
         
         <!-- Long-Horizon Tracking -->
-        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_hammer.mp4" type="video/mp4"></video><span class="grid-label">Hammer hitting</span></div>
-        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_sword.mp4" type="video/mp4"></video><span class="grid-label">Sword playing</span></div>
-        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_bottle.mp4" type="video/mp4"></video><span class="grid-label">Bottle arranging</span></div>
-        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_box.mp4" type="video/mp4"></video><span class="grid-label">Box manipulation</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_hammer_white.mp4" type="video/mp4"></video><span class="grid-label">Hammer hitting</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_sword_white.mp4" type="video/mp4"></video><span class="grid-label">Sword playing</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_bottle_white.mp4" type="video/mp4"></video><span class="grid-label">Bottle arranging</span></div>
+        <div class="grid-cell"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/demo_box_white.mp4" type="video/mp4"></video><span class="grid-label">Box manipulation</span></div>
        
        
       </div>
@@ -127,37 +127,60 @@
                 <span class="title-main">HOT</span>
                 <span class="title-sub">Learning Generalizable Hand-Object Tracking <br>without Human Demonstration</span>
               </h1>
-              <p class="has-text-centered demo-desc hero-stagger hero-stagger--4" style="max-width: 860px; margin: 1.25rem auto 0;">
-                This work learns generalizable hand-object tracking controllers purely from synthetic data, without any human demonstrations.
-                HOG synthesizes diverse hand-object trajectories, and HOT tracks them robustly across objects, long-horizon sequences, and different dexterous hands.
+              <div class="publication-authors publication-authors--dense hero-stagger hero-stagger--2" aria-label="Authors">
+                <span class="author-block"><a href="https://ingrid789.github.io/IngridYu/" target="_blank" rel="noopener noreferrer">Runyi Yu</a><sup>1,*</sup></span>
+                <span class="author-block"><a href="https://github.com/XiaoyiLin-code" target="_blank" rel="noopener noreferrer">Xiaoyi Lin</a><sup>2,*</sup></span>
+                <span class="author-block"><a href="mailto:hwtsui@connect.ust.hk">Hok Wai Tsui</a><sup>1,*</sup></span>
+                <span class="author-block"><a href="https://wyhuai.github.io/info/" target="_blank" rel="noopener noreferrer">Yinhuai Wang</a><sup>1,*✉</sup></span>
+                <span class="author-block"><a href="https://zdchan.github.io/" target="_blank" rel="noopener noreferrer">Hui Zhang</a><sup>4</sup></span>
+                <span class="author-block"><a href="https://github.com/QihanZhao" target="_blank" rel="noopener noreferrer">Qihan Zhao</a><sup>1</sup></span>
+                <span class="author-block"><a href="https://vankouf.github.io/" target="_blank" rel="noopener noreferrer">Ke Fan</a><sup>5</sup></span>
+                <span class="author-block"><a href="https://miaoli.github.io/" target="_blank" rel="noopener noreferrer">Miao Li</a><sup>2</sup></span>
+                <span class="author-block"><a href="https://ait.ethz.ch/people/song" target="_blank" rel="noopener noreferrer">Jie Song</a><sup>6</sup></span>
+                <span class="author-block"><a href="https://wangjingbo1219.github.io/" target="_blank" rel="noopener noreferrer">Jingbo Wang</a><sup>3</sup></span>
+                <span class="author-block"><a href="https://cqf.x10host.com/" target="_blank" rel="noopener noreferrer">Qifeng Chen</a><sup>1,✉</sup></span>
+                <span class="author-block"><a href="https://ece.hkust.edu.hk/pingtan" target="_blank" rel="noopener noreferrer">Ping Tan</a><sup>1,✉</sup></span>
+              </div>
+              <p class="eql-cntrb hero-stagger hero-stagger--3">
+                <span>* Equal contributors</span>
+                <span>✉ Corresponding authors</span>
               </p>
+              <div class="publication-affiliations hero-stagger hero-stagger--3" aria-label="Affiliations">
+                <span><sup>1</sup> HKUST</span>
+                <span><sup>2</sup> Wuhan University</span>
+                <span><sup>3</sup> Shanghai AI Laboratory</span>
+                <span><sup>4</sup> ETH Zurich</span>
+                <span><sup>5</sup> SJTU</span>
+                <span><sup>6</sup> HKUST (GZ)</span>
+              </div>
               <div class="column has-text-centered hero-stagger hero-stagger--5">
                 <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2512.19583" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                      <span class="icon"><i class="fas fa-file-alt"></i></span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="https://youtu.be/WygsdIDDR_s" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                      <span class="icon"><i class="fab fa-youtube"></i></span>
+                      <span>YouTube</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="https://github.com/wyhuai/Hand-Object-Tracking" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                      <span class="icon"><i class="fab fa-github"></i></span>
+                      <span>GitHub Code</span>
+                    </a>
+                  </span>
                   <span class="link-block">
                     <a href="#contributions-section" class="external-link button is-normal is-rounded is-dark">
                       <span class="icon"><i class="fas fa-align-left"></i></span>
                       <span>Overview</span>
                     </a>
                   </span>
-                  <span class="link-block">
-                    <a href="#method-section" class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon"><i class="fas fa-project-diagram"></i></span>
-                      <span>Method</span>
-                    </a>
-                  </span>
-                  <span class="link-block">
-                    <a href="#teaser-section" class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon"><i class="fas fa-play-circle"></i></span>
-                      <span>Teaser</span>
-                    </a>
-                  </span>
-                  <span class="link-block">
-                    <a href="#generalization-section" class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon"><i class="fas fa-video"></i></span>
-                      <span>Results</span>
-                    </a>
-                  </span>
                 </div>
+                <p class="publication-acceptance"><span>Accept to NeurIPS 2026</span></p>
               </div>
             </div>
           </div>
@@ -168,24 +191,16 @@
     <section class="section hero is-light contributions-section" id="contributions-section">
       <div class="container is-max-desktop">
         <div id="abstract-section"></div>
-        <h2 class="title is-3 has-text-centered section-heading reveal"> Abstract <a href="#contributions-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <h2 class="title is-3 has-text-centered section-heading reveal"> Overview <a href="#contributions-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
         <div class="columns is-centered">
           <div class="column is-four-fifths">
             <div class="content has-text-justified reveal" style="margin-bottom: 2rem;">
               <p>
                 We present a system for learning generalizable hand-object tracking controllers purely from synthetic data, without requiring any human demonstrations.
-              </p>
-              <p>
                 Our approach makes two key contributions: 
                 (1) <span class="abstract-emphasis abstract-emphasis--hog">HOG</span>, a highly efficient Hand-Object data generator that rapidly synthesizes <span class="abstract-emphasis abstract-emphasis--underline">diverse, large-scale</span>, and <span class="abstract-emphasis abstract-emphasis--underline">uniformly distributed trajectories</span>; and
                 (2) <span class="abstract-emphasis abstract-emphasis--hot">HOT</span>, a Hand-Object Tracker that bridges <span class="abstract-emphasis abstract-emphasis--underline">synthetic-to-physical</span> transfer through reinforcement learning and interaction imitation learning. 
                 <span class="abstract-emphasis abstract-emphasis--statement">Notably, we demonstrate that the fast and intentionally noisy data generation process of HOG is crucial for endowing HOT with robust interaction dynamics.</span>
-              </p>
-              <p>
-                Our method extends to <span class="abstract-emphasis abstract-emphasis--underline">diverse object shapes</span> and <span class="abstract-emphasis abstract-emphasis--underline">hand morphologies</span>.
-                Through extensive evaluations, we show that our approach enables dexterous hands to track challenging, long-horizon sequences including object re-arrangement and agile in-hand reorientation.
-                These results represent a significant step toward scalable foundation controllers for manipulation that can learn entirely from simple, scalable synthetic data, 
-                breaking the data bottleneck that has long constrained progress in dexterous manipulation.
               </p>
             </div>
           </div>
@@ -289,6 +304,12 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="demo-main-video-wrap reveal" id="contribution-teaser">
+          <video controls muted loop playsinline preload="none" aria-label="Project teaser">
+            <source data-src="static/videos/part0_teaser_video.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label">Project teaser</div>
         </div>
       </div>
     </section>
@@ -603,21 +624,6 @@
       </div>
     </section>
 
-    <section class="section demo-section hero is-small is-light" id="teaser-section">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">Project Teaser <a href="#teaser-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
-        <p class="has-text-centered demo-desc reveal">
-          A quick overview of the HOG data synthesis and HOT policy training.
-        </p>
-        <div class="demo-main-video-wrap reveal">
-          <video controls muted loop playsinline preload="none">
-            <source data-src="static/videos/part0_teaser_video.mp4" type="video/mp4">
-          </video>
-          <div class="demo-video-label">Project teaser</div>
-        </div>
-      </div>
-    </section>
-
     <section class="section demo-section hero is-small" id="generalization-section">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered demo-title section-heading reveal">1. HOG Synthetic Trajectories / HOT Tracking Results <a href="#generalization-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
@@ -626,17 +632,17 @@
           HOT learns robust hand-object interaction dynamics by tracking these synthesized trajectories.
         </p>
         <div class="demo-tabs" id="demo-tabs-generalization" role="tablist">
-          <button type="button" class="demo-tab active" data-video="static/videos/part1_sword_grasp.mp4" data-label="Sword grasp" aria-selected="true">Grasp</button>
-          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_place.mp4" data-label="Sword place">Place</button>
-          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_move.mp4" data-label="Sword move">Move</button>
-          <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_throw.mp4" data-label="Bottle throw">Throw</button>
+          <button type="button" class="demo-tab active" data-video="static/videos/part1_sword_grasp.mp4?v=four-examples" data-label="Sword grasp" aria-selected="true">Grasp</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_place.mp4?v=four-examples" data-label="Sword place">Place</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_sword_move.mp4?v=four-examples" data-label="Sword move">Move</button>
+          <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_throw.mp4?v=trimmed-margins" data-label="Bottle throw">Throw</button>
           <button type="button" class="demo-tab" data-video="static/videos/part1_sword_catch.mp4" data-label="Sword catch">Catch</button>
           <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_rotate.mp4" data-label="Bottle rotate">Rotate</button>
           <button type="button" class="demo-tab" data-video="static/videos/part1_bottle_regrasp.mp4" data-label="Bottle regrasp">Regrasp</button>
         </div>
         <div class="demo-main-video-wrap reveal">
           <video id="demo-video-generalization" controls muted loop playsinline preload="none">
-            <source data-src="static/videos/part1_sword_grasp.mp4" type="video/mp4">
+            <source data-src="static/videos/part1_sword_grasp.mp4?v=four-examples" type="video/mp4">
           </video>
           <div class="demo-video-label" id="demo-label-generalization">Sword grasp</div>
         </div>
@@ -664,6 +670,10 @@
               <button type="button" class="demo-tab" data-video="static/videos/part4_grab_bowl.mp4" data-label="Bowl manipulation">Bowl</button>
               <button type="button" class="demo-tab" data-video="static/videos/part4_grab_cup.mp4" data-label="Cup manipulation">Cup</button>
               <button type="button" class="demo-tab" data-video="static/videos/part4_grab_wineglass.mp4" data-label="Wineglass manipulation">Wineglass</button>
+              <button type="button" class="demo-tab demo-tab--details" data-video="static/videos/part4_grab_substeps.mp4" data-label="Tracking motion substeps from GRAB" aria-selected="false" aria-controls="demo-video-recovery">
+                <i class="fas fa-list-ol" aria-hidden="true"></i>
+                <span>Details</span>
+              </button>
             </div>
           </div>
         </div>
@@ -674,12 +684,6 @@
           <div class="demo-video-label" id="demo-label-recovery">[Text2HOI] Pick the banana with right hand</div>
         </div>
 
-        <div class="demo-main-video-wrap reveal">
-          <video controls muted loop playsinline preload="none">
-            <source data-src="static/videos/part4_grab_substeps.mp4" type="video/mp4">
-          </video>
-          <div class="demo-video-label">Tracking motion substeps from GRAB</div>
-        </div>
       </div>
     </section>
 
@@ -704,24 +708,9 @@
       </div>
     </section>
 
-    <section class="section demo-section hero is-small is-light" id="perception-section">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">4. VLM Planning + Our Method <a href="#perception-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
-        <p class="has-text-centered demo-desc reveal">
-          HOT can take high-level waypoints from upstream planners and track the resulting hand-object interaction sequence.
-        </p>
-        <div class="demo-main-video-wrap reveal">
-          <video controls muted loop playsinline preload="none">
-            <source data-src="static/videos/part3_video_vlm_bottle.mp4" type="video/mp4">
-          </video>
-          <div class="demo-video-label">Place the bottles into the basket</div>
-        </div>
-      </div>
-    </section>
-
     <section class="section demo-section hero is-small" id="results-section">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">5. Different Dexterous Hand <a href="#results-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">4. Different Dexterous Hand <a href="#results-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
         <p class="has-text-centered demo-desc reveal">
           The framework extends beyond a single hand morphology and generalizes to different dexterous hand embodiments.
         </p>
@@ -770,9 +759,24 @@
       </div>
     </section>
 
+    <section class="section demo-section hero is-small is-light" id="perception-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">5. VLM Planning + Our Method <a href="#perception-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <p class="has-text-centered demo-desc reveal">
+          HOT can take high-level waypoints from upstream planners and track the resulting hand-object interaction sequence.
+        </p>
+        <div class="demo-main-video-wrap reveal">
+          <video controls muted loop playsinline preload="none">
+            <source data-src="static/videos/part3_video_vlm_bottle.mp4" type="video/mp4">
+          </video>
+          <div class="demo-video-label">Place the bottles into the basket</div>
+        </div>
+      </div>
+    </section>
+
     <section class="section demo-section hero is-small" id="sim2sim-section">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">6. Cross-Simulator Results <a href="#sim2sim-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">6. Sim-to-Sim Results <a href="#sim2sim-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
         <p class="has-text-centered demo-desc reveal">
           We validate sim-to-sim transfer in MuJoCo across two dexterous hand embodiments.
         </p>
@@ -780,25 +784,25 @@
           <div class="demo-tab-group">
             <div class="demo-tab-group-title">Shadow Hand</div>
             <div class="demo-tab-group-buttons">
-              <button type="button" class="demo-tab active" data-video="static/videos/mujoco_sim2sim/shadow_grasp_001_bottle_3_0-9.mp4" data-label="Shadow Hand: Grasp" aria-selected="true">Grasp</button>
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_move_002_bottle_12_9.mp4" data-label="Shadow Hand: Move" aria-selected="false">Move</button>
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_place_003_bottle_4_5-9.mp4" data-label="Shadow Hand: Place" aria-selected="false">Place</button>
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_grasp_move_place_010_bottle_2-0.mp4" data-label="Shadow Hand: Grasp-Move-Place" aria-selected="false">Grasp-Move-Place</button>
+              <button type="button" class="demo-tab active" data-video="static/videos/mujoco_sim2sim/shadow_grasp_001_bottle_3_0-9.mp4?v=crop-top288" data-label="Shadow Hand: Grasp" aria-selected="true">Grasp</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_move_002_bottle_12_9.mp4?v=crop-top288" data-label="Shadow Hand: Move" aria-selected="false">Move</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_place_003_bottle_4_5-9.mp4?v=crop-top288" data-label="Shadow Hand: Place" aria-selected="false">Place</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/shadow_grasp_move_place_010_bottle_2-0.mp4?v=crop-top288" data-label="Shadow Hand: Grasp-Move-Place" aria-selected="false">Grasp-Move-Place</button>
             </div>
           </div>
           <div class="demo-tab-group">
             <div class="demo-tab-group-title">Allegro Hand</div>
             <div class="demo-tab-group-buttons">
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_grasp_001_bottle_1_5-9.mp4" data-label="Allegro Hand: Grasp" aria-selected="false">Grasp</button>
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_move_002_bottle_10_9.mp4" data-label="Allegro Hand: Move" aria-selected="false">Move</button>
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_place_003_bottle_26_3-9.mp4" data-label="Allegro Hand: Place" aria-selected="false">Place</button>
-              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_grasp_move_place_010_bottle_12-0.mp4" data-label="Allegro Hand: Grasp-Move-Place" aria-selected="false">Grasp-Move-Place</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_grasp_001_bottle_1_5-9.mp4?v=crop-top288" data-label="Allegro Hand: Grasp" aria-selected="false">Grasp</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_move_002_bottle_10_9.mp4?v=crop-top288" data-label="Allegro Hand: Move" aria-selected="false">Move</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_place_003_bottle_26_3-9.mp4?v=crop-top288" data-label="Allegro Hand: Place" aria-selected="false">Place</button>
+              <button type="button" class="demo-tab" data-video="static/videos/mujoco_sim2sim/allegro_grasp_move_place_010_bottle_12-0.mp4?v=crop-top288" data-label="Allegro Hand: Grasp-Move-Place" aria-selected="false">Grasp-Move-Place</button>
             </div>
           </div>
         </div>
         <div class="demo-main-video-wrap reveal">
           <video id="demo-video-sim2sim" controls muted loop playsinline preload="none">
-            <source data-src="static/videos/mujoco_sim2sim/shadow_grasp_001_bottle_3_0-9.mp4" type="video/mp4">
+            <source data-src="static/videos/mujoco_sim2sim/shadow_grasp_001_bottle_3_0-9.mp4?v=crop-top288" type="video/mp4">
           </video>
           <div class="demo-video-label" id="demo-label-sim2sim">Shadow Hand: Grasp</div>
         </div>
@@ -807,11 +811,11 @@
 
     <section class="section demo-section hero is-small is-light" id="realworld-section">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">7. Real-World Deployment <a href="#realworld-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+        <h2 class="title is-3 has-text-centered demo-title section-heading reveal">7. Real-World Replay <a href="#realworld-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
         <p class="has-text-centered demo-desc reveal">
-          We deploy HOT on a physical robot system comprising a Flexiv Rizon 4 arm and a Revo3 hand.
+          We replay precomputed trajectories on a physical robot system comprising a Flexiv Rizon 4 arm and a Revo3 hand. These videos demonstrate real-world trajectory replay, not direct deployment of the HOT policy.
         </p>
-        <div class="demo-tabs" id="demo-tabs-realworld" role="tablist" aria-label="Real-world deployment videos">
+        <div class="demo-tabs" id="demo-tabs-realworld" role="tablist" aria-label="Real-world trajectory replay videos">
           <button type="button" class="demo-tab active" data-video="static/videos/real_world/demo_01.mp4" data-label="Bottle Grasp-Move-Place" aria-selected="true">Bottle Grasp-Move-Place</button>
           <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_02.mp4" data-label="Box Move" aria-selected="false">Box Move</button>
           <button type="button" class="demo-tab" data-video="static/videos/real_world/demo_03.mp4" data-label="Box Grasp" aria-selected="false">Box Grasp</button>
@@ -829,6 +833,23 @@
       </div>
     </section>
 
+    <section class="section hero is-light" id="citation-section">
+      <div class="container is-max-desktop">
+        <div class="bibtex-header reveal">
+          <h2 class="title is-3 section-heading">Citation <a href="#citation-section" class="heading-anchor" aria-label="Link to this section">#</a></h2>
+          <button type="button" class="copy-bibtex-btn" onclick="copyBibTeX()" aria-label="Copy BibTeX citation">
+            <i class="fas fa-copy" aria-hidden="true"></i>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre class="reveal"><code id="bibtex-code">@article{wang2025learning,
+  title={Learning generalizable hand-object tracking from synthetic demonstrations},
+  author={Yu, Runyi and Lin, Xiaoyi and Wang, Yinhuai and Tsui, Hok Wai  and Zhang, Hui and Zhao, Qihan and Fan, Ke and Li, Miao and Song, Jie and Wang, Jingbo and others},
+  journal={arXiv preprint arXiv:2512.19583/v2},
+  year={2026}
+}</code></pre>
+      </div>
+    </section>
   </main>
 
   <script>

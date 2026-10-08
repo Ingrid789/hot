@@ -164,7 +164,7 @@ function activateVideo(video) {
 var lazyVideoObserver = null;
 
 function setupLazyVideos() {
-    var videos = document.querySelectorAll('.how-section video, .demo-section video');
+    var videos = document.querySelectorAll('.contributions-section video, .how-section video, .demo-section video');
     if (!videos.length) return;
 
     if (!('IntersectionObserver' in window)) {
@@ -193,7 +193,7 @@ function setupLazyVideos() {
 // Legacy name kept for resumeAllVideos compatibility
 function autoplayDemoVideos() {
     if (lazyVideoObserver) {
-        document.querySelectorAll('.how-section video, .demo-section video').forEach(function(video) {
+        document.querySelectorAll('.contributions-section video, .how-section video, .demo-section video').forEach(function(video) {
             lazyVideoObserver.observe(video);
         });
     } else {
@@ -622,7 +622,7 @@ function resumeAllVideos() {
     }
     // Re-observe lazy videos
     if (lazyVideoObserver) {
-        document.querySelectorAll('.how-section video, .demo-section video').forEach(function(video) {
+        document.querySelectorAll('.contributions-section video, .how-section video, .demo-section video').forEach(function(video) {
             lazyVideoObserver.observe(video);
         });
     }

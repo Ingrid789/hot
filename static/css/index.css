@@ -355,7 +355,7 @@ body {
     font-family: 'Inter', sans-serif !important;
     font-weight: 800 !important;
     color: var(--text-primary) !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 2.6rem !important;
     line-height: 1.1 !important;
 }
 
@@ -369,7 +369,7 @@ body {
 }
 
 .publication-title .title-sub {
-  margin-top: 0.35rem;
+  margin-top: 0.455rem;
   font-size: 0.62em;
   font-weight: 700;
   line-height: 1.25;
@@ -398,16 +398,28 @@ body {
     font-size: clamp(0.8rem, 0.85vw, 1.2rem) !important;
     padding: clamp(0.4rem, 0.5vw, 0.8rem) clamp(0.8rem, 1vw, 1.6rem) !important;
   }
-
-  .hero-main .eql-cntrb {
-    font-size: clamp(0.7rem, 0.75vw, 1.1rem);
-  }
 }
 
 .hero-main .publication-authors,
-.hero-main .publication-authors .author-name,
-.hero-main .eql-cntrb {
+.hero-main .publication-authors .author-name {
   color: #e2e8f0 !important;
+}
+
+.hero-main .eql-cntrb {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem 1.1rem;
+  color: #fff;
+  font-size: clamp(1rem, 1.1vw, 1.35rem);
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.7;
+  text-shadow: 0 2px 4px rgba(2, 6, 23, 0.95), 0 0 12px rgba(2, 6, 23, 0.65);
+}
+
+.hero-main .eql-cntrb > span {
+  white-space: nowrap;
 }
 
 .hero-main .publication-authors a {
@@ -451,6 +463,67 @@ body {
     font-family: 'Inter', sans-serif !important;
     font-weight: 500;
     margin-bottom: 1.5rem;
+}
+
+.publication-authors--dense {
+  max-width: 100%;
+  margin: 0 auto 0.845rem;
+  line-height: 1.75;
+  text-wrap: balance;
+}
+
+.hero-main .publication-affiliations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.4rem;
+  max-width: 100%;
+  margin: 0.845rem auto 0;
+  color: #fff;
+  font-size: clamp(1rem, 1.15vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.7;
+  text-shadow: 0 2px 4px rgba(2, 6, 23, 0.95), 0 0 12px rgba(2, 6, 23, 0.65);
+}
+
+.publication-affiliations > span {
+  white-space: nowrap;
+}
+
+.publication-affiliations sup {
+  color: #bfdbfe;
+  font-size: 0.72em;
+  font-weight: 700;
+}
+
+.hero-main .publication-affiliations + .column {
+  padding-top: 0.975rem;
+}
+
+.hero-main .publication-acceptance {
+  margin: 1.625rem auto 0;
+  color: #fff;
+  font-size: clamp(1.118rem, 1.404vw, 1.534rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+
+.hero-main .publication-acceptance span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0.68rem 1.18rem;
+  border: 1.5px solid rgba(167, 139, 250, 0.72);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.72), rgba(118, 75, 162, 0.68));
+  box-shadow: 0 0 25px rgba(96, 165, 250, 0.32), inset 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.hero-main .publication-acceptance span::before {
+  content: "✦";
+  color: #bfdbfe;
+  font-size: 1.05em;
 }
 
 .publication-venue {
@@ -699,6 +772,11 @@ code {
 }
 
 /* BibTeX Section Improvements */
+#citation-section .container {
+  width: 100%;
+  min-width: 0;
+}
+
 .bibtex-header {
   display: flex;
   justify-content: space-between;
@@ -1094,12 +1172,22 @@ code {
     flex-grow: 0;
     padding-top: 0;
     padding-bottom: 0;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .hero-main .container {
+    width: 100%;
+  }
+
+  .hero-main .container > .columns {
+    margin: 0;
   }
 
   .hero-main .publication-title {
     font-size: 1.8rem !important;
     line-height: 1.25 !important;
-    margin-bottom: 0.6rem !important;
+    margin-bottom: 0.78rem !important;
   }
 
   .hero-main .title-main {
@@ -1117,7 +1205,17 @@ code {
 
   /* Tighten spacing between authors → equal-contrib → affiliations */
   .hero-main .publication-authors {
-    margin-bottom: 0.35rem !important;
+    margin-bottom: 0.455rem !important;
+  }
+
+  .hero-main .publication-authors--dense {
+    max-width: 100%;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .hero-main .publication-acceptance span {
+    padding: 0.65rem 0.9rem;
   }
 
   .hero-main .affiliations-wrap {
@@ -1475,6 +1573,10 @@ a:focus,
   width: 100%;
   max-width: 72rem;
   margin: 0 auto;
+}
+
+.contributions-section .demo-main-video-wrap {
+  margin-top: 2rem;
 }
 
 .contributions-section .contributions-copy,
@@ -2606,6 +2708,39 @@ a:focus,
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
   font-weight: 600;
 }
+
+.demo-section .demo-tab--details {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-style: dashed;
+  border-color: #a78bfa;
+  border-radius: 12px;
+  background: #f5f3ff;
+  color: #6d28d9;
+  font-weight: 700;
+}
+
+.demo-section .demo-tab--details:hover {
+  background: #ede9fe;
+  border-color: #7c3aed;
+  color: #5b21b6;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.16);
+}
+
+.demo-section .demo-tab--details.active {
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+  border-style: solid;
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+}
+
+/* Keep video cards free of caption bars; labels still support tab switching. */
+.demo-video-label {
+  display: none;
+}
+
 .demo-main-video-wrap {
   max-width: 720px;
   margin: 0 auto;
@@ -2843,6 +2978,8 @@ a:focus,
   display: block;
 }
 
+/* Sections 2–3 share section 4's width; their videos keep their native aspect ratios. */
+:is(#recovery-section, #longhorizon-section) .demo-main-video-wrap,
 .hand-carousel {
   position: relative;
   max-width: 720px;
